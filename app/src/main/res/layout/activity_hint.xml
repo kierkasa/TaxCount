@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background3"
+    tools:context=".HintActivity">
+
+    <TextView
+        android:id="@+id/help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="帮助"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_margin="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ScrollView
+        android:id="@+id/hint_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/help"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/instruction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用说明："
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/instruction_content1"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="    1. 快捷计算中养老保险、医疗保险、失业保险、住房公积金四项值在填写税前收入并计算后会自动计算生成；也可在生成后手动改写，此时无需点击“计算”按钮即可实时改变税后收入值。"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/instruction"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/instruction_content2"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="    2. 精确计算中默认开启“延续填写”，可以让当前月份变更的内容延续到后续月份；关闭“延续填写”后，此页变更的内容不会向后延续，同时在其前的月份中所做的内容变更也不会在此月变更。"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/instruction_content1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个税小知识："
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/instruction_content2"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/tips_content1"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="    1. 税前收入是未扣除社保公积金和个税的收入，不只是个税哦."
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/tips"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/tips_content2"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="    2. 住新税法实施首年发生的大病医疗支出，要在2020年才能办理，所以目前计算个税不考虑这一项。"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/tips_content1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/tips_content3"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="    3. 住房利息贷款与住房租金不能同时选取。"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/tips_content2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/tips_content4"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="    4. 累计预扣预缴应纳税所得额=累计收入-累计免税收入-累计减除费用-累计专项扣除-累计专项附加扣除-累计依法确定的其他扣除。"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/tips_content3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/tips_content5"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="    5. 本月个税=（累计预扣预缴应纳税所得额×预扣率-速算扣除数)-累计减免税额-累计已预扣预缴税额。"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/tips_content4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                android:id="@+id/reference_linking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="参考链接："
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/tips_content5"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/reference_linking_content1"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:autoLink="web"
+                android:text="    1. http://beijing.chinatax.gov.cn/bjswj/xxgk/zxfg/201812/t20181222_375695.html"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/reference_linking"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/reference_linking_content2"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:autoLink="web"
+                android:text="    2. http://beijing.chinatax.gov.cn/bjswj/xxgk/zxfg/201812/t20181228_376235.html"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/reference_linking_content1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/reference_linking_content3"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:autoLink="web"
+                android:text="    3. http://beijing.chinatax.gov.cn/bjswj/xxgk/zxfg/201812/t20181223_375777.html"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/reference_linking_content2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/reference_linking_content4"
+                android:visibility="gone"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:autoLink="web"
+                android:text="    4. http://beijing.chinatax.gov.cn/bjswj/xxgk/zxfg/201812/t20181228_376239.html"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/reference_linking_content3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/toolbar_reference"/>
+
+</android.support.constraint.ConstraintLayout>

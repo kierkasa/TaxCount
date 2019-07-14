@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#66bab7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/count"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/set_count"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintLeft_toLeftOf="@+id/toolbar"
+        app:layout_constraintRight_toLeftOf="@id/accurate"/>
+
+    <Button
+        android:id="@+id/accurate"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/set_calculate"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintLeft_toRightOf="@+id/count"
+        app:layout_constraintRight_toLeftOf="@id/hint"/>
+
+
+    <Button
+        android:id="@+id/hint"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/set_hint"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintLeft_toRightOf="@+id/accurate"
+        app:layout_constraintRight_toRightOf="@id/toolbar"/>
+
+
+</android.support.constraint.ConstraintLayout>

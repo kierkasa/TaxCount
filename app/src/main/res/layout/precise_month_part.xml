@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/set_part"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/hide_text"
+        android:text="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintLeft_toRightOf="@+id/pretax_income_p"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/pretax_income_p"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/children_edu_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="税前收入: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/pretax_income_input_p"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:inputType="numberDecimal"
+            android:hint="输入税前收入"
+            android:textSize="15dp"
+            android:background="@drawable/set_selector" />
+
+        <CheckBox
+            android:id="@+id/continue_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="延续填写"
+            android:textSize="13dp"
+            android:textColor="#bdc0ba"
+            android:checked="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/children_edu_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/pretax_income_p"
+        app:layout_constraintBottom_toTopOf="@+id/continuing_edu_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="子女教育: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/children_edu_total_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:visibility="gone"/>
+
+        <CheckBox
+            android:id="@+id/children_edu_checkBox_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="14dp" />
+
+        <RadioGroup
+            android:id="@+id/children_edu_group_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="1dp">
+            <RadioButton
+                android:id="@+id/children_edu_500_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"
+                android:buttonTint="#828282" />
+
+            <RadioButton
+                android:id="@+id/children_edu_1000_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:buttonTint="#828282" />
+
+            <RadioButton
+                android:id="@+id/children_edu_2000_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2000"
+                android:buttonTint="#828282" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/continuing_edu_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/children_edu_p"
+        app:layout_constraintBottom_toTopOf="@+id/home_loans_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="继续教育: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/continuing_edu_total_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:visibility="gone"/>
+
+        <CheckBox
+            android:id="@+id/continuing_edu_checkBox_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="14dp" />
+
+        <RadioGroup
+            android:id="@+id/continuing_edu_group_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp">
+            <RadioButton
+                android:id="@+id/continuing_edu_400_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="400"
+                android:buttonTint="#828282" />
+
+            <RadioButton
+                android:id="@+id/continuing_edu_3600_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3600"
+                android:buttonTint="#828282" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_loans_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/continuing_edu_p"
+        app:layout_constraintBottom_toTopOf="@+id/housing_rents_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="住房利息贷款: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/home_loans_total_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:visibility="gone"/>
+
+        <CheckBox
+            android:id="@+id/home_loans_checkBox_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textSize="15dp" />
+
+        <RadioGroup
+            android:id="@+id/home_loans_group_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp">
+            <RadioButton
+                android:id="@+id/home_loans_500_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"
+                android:buttonTint="#828282" />
+
+            <RadioButton
+                android:id="@+id/home_loans_1000_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:buttonTint="#828282" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/housing_rents_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/home_loans_p"
+        app:layout_constraintBottom_toTopOf="@+id/support_old_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="住房租金: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/housing_rents_total_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:visibility="gone"/>
+
+        <CheckBox
+            android:id="@+id/housing_rents_checkBox_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="14dp" />
+
+        <RadioGroup
+            android:id="@+id/housing_rents_group_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp">
+
+            <RadioButton
+                android:id="@+id/housing_rents_1500_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1500"
+                android:buttonTint="#828282" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/support_old_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/housing_rents_p"
+        app:layout_constraintBottom_toTopOf="@+id/endowment_insurance_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="赡养老人: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/support_old_total_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:visibility="gone"/>
+
+        <CheckBox
+            android:id="@+id/support_old_checkBox_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="14dp" />
+
+        <RadioGroup
+            android:id="@+id/support_old_group_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="false"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp">
+            <RadioButton
+                android:id="@+id/support_old_500_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#828282"
+                android:text="500"/>
+
+            <RadioButton
+                android:id="@+id/support_old_1000_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#828282"
+                android:text="1000"/>
+
+            <RadioButton
+                android:id="@+id/support_old_2000_p"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#828282"
+                android:text="2000"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endowment_insurance_p"
+        app:layout_constraintTop_toBottomOf="@+id/support_old_p"
+        app:layout_constraintBottom_toTopOf="@+id/medical_insurance_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="养老保险: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/endowment_insurance_input_p"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:inputType="numberDecimal"
+            android:hint="需按实际情况自行写入"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/medical_insurance_p"
+        app:layout_constraintTop_toBottomOf="@+id/endowment_insurance_p"
+        app:layout_constraintBottom_toTopOf="@+id/unemployment_insurance_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="医疗保险: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/medical_insurance_input_p"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:inputType="numberDecimal"
+            android:hint="需按实际情况自行写入"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/unemployment_insurance_p"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toTopOf="@+id/housing_fund_p"
+        app:layout_constraintTop_toBottomOf="@+id/medical_insurance_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="失业保险: "
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/unemployment_insurance_input_p"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:hint="需按实际情况自行写入"
+            android:inputType="numberDecimal"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/housing_fund_p"
+        app:layout_constraintTop_toBottomOf="@+id/unemployment_insurance_p"
+        app:layout_constraintBottom_toTopOf="@id/taxable_income_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="住房公积金: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/housing_fund_input_p"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:inputType="numberDecimal"
+            android:hint="需按实际情况自行写入"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/taxable_income_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/housing_fund_p"
+        app:layout_constraintBottom_toTopOf="@id/tax_rate_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="应纳税所得额: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/taxable_income_value_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text=""
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tax_rate_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/taxable_income_p"
+        app:layout_constraintBottom_toTopOf="@id/total_income_tax_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="税率/预扣率: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tax_rate_value_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:text=""
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/total_income_tax_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/tax_rate_p"
+        app:layout_constraintBottom_toTopOf="@+id/month_income_tax_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="累计应缴个税: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/total_income_tax_value_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text=""
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/month_income_tax_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/total_income_tax_p"
+        app:layout_constraintBottom_toTopOf="@+id/month_final_income_p">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="当月应缴个税: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/month_income_tax_value_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text=""
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/month_final_income_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/month_income_tax_p"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="当月到手收入: "
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/month_final_income_value_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text=""
+            android:textSize="15dp"
+            android:textColor="#5dac81"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
