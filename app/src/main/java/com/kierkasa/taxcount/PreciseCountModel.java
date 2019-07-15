@@ -52,7 +52,7 @@ public class PreciseCountModel {
             dou[3][24] = toFixed2(dou[3][23] - accumulate_month_income_tax);
         }
         accumulate_month_income_tax += dou[3][24];
-        dou[3][25] = toFixed(dou[3][25] - dou[3][24]);
+        dou[3][25] = toFixed2(dou[3][25] - dou[3][24]);
         
         dou[4][31] = dou[3][31];
         dou[4][33] = dou[3][33];

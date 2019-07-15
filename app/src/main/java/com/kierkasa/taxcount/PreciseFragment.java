@@ -184,6 +184,12 @@ public class PreciseFragment extends Fragment implements TaxCountCallBack, View.
 
     //初始化控件
     private void initWidget() {
+        mTop = dpToPx(getActivity(), 7);
+        mLeft = dpToPx(getActivity(), 63);
+        mTop2 = dpToPx(getActivity(), 7);
+        mLeft2 = dpToPx(getActivity(), 253);
+        mTop3 = dpToPx(getActivity(), 42);
+        mLeft3 = dpToPx(getActivity(), 16);
 
         taxCountPresenter = new TaxCountPresenter(this);
         screen_width = getScreenSize(getActivity(), "width");
