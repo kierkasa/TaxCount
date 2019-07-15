@@ -558,8 +558,15 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                     holder.home_loans_1000.setClickable(true);
                     holder.home_loans_500.setButtonTintList(radio_changed);
                     holder.home_loans_1000.setButtonTintList(radio_changed);
-
                     douArray[page][8] = 1;
+
+                    holder.housing_rents_checkBox.setChecked(false);
+                    holder.housing_rents_group.setClickable(false);
+                    holder.housing_rents_1500.setChecked(false);
+                    holder.housing_rents_1500.setClickable(false);
+                    douArray[page][11] = 0;
+                    douArray[page][12] = 0;
+                    douArray[page][13] = 0;
                 } else {
                     holder.home_loans_group.setClickable(false);
                     holder.home_loans_500.setChecked(false);
@@ -584,6 +591,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                                 douArray[page + 1][8] = douArray[original_page][8];
                                 douArray[page + 1][9] = douArray[original_page][9];
                                 douArray[page + 1][10] = douArray[original_page][10];
+
+                                douArray[page + 1][11] = douArray[original_page][11];
+                                douArray[page + 1][12] = douArray[original_page][12];
+                                douArray[page + 1][13] = douArray[original_page][13];
                             } else {
                                 continue;
                             }
@@ -601,8 +612,17 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                     holder.housing_rents_group.setClickable(true);
                     holder.housing_rents_1500.setClickable(true);
                     holder.housing_rents_1500.setButtonTintList(radio_changed);
-
                     douArray[page][11] = 1;
+
+                    holder.home_loans_checkBox.setChecked(false);
+                    holder.home_loans_group.setClickable(false);
+                    holder.home_loans_500.setChecked(false);
+                    holder.home_loans_1000.setChecked(false);
+                    holder.home_loans_500.setClickable(false);
+                    holder.home_loans_1000.setClickable(false);
+                    douArray[page][8] = 0;
+                    douArray[page][9] = 0;
+                    douArray[page][10] = 0;
                 } else {
                     holder.housing_rents_group.setClickable(false);
                     holder.housing_rents_1500.setChecked(false);
@@ -624,6 +644,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                                 douArray[page + 1][11] = douArray[original_page][11];
                                 douArray[page + 1][12] = douArray[original_page][12];
                                 douArray[page + 1][13] = douArray[original_page][13];
+
+                                douArray[page + 1][8] = douArray[original_page][8];
+                                douArray[page + 1][9] = douArray[original_page][9];
+                                douArray[page + 1][10] = douArray[original_page][10];
                             } else {
                                 continue;
                             }
@@ -801,6 +825,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                                     douArray[page + 1][8] = douArray[original_page][8];
                                     douArray[page + 1][9] = douArray[original_page][9];
                                     douArray[page + 1][10] = douArray[original_page][10];
+
+                                    douArray[page + 1][11] = douArray[original_page][11];
+                                    douArray[page + 1][12] = douArray[original_page][12];
+                                    douArray[page + 1][13] = douArray[original_page][13];
                                 } else {
                                     continue;
                                 }
@@ -839,6 +867,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                                     douArray[page + 1][11] = douArray[original_page][11];
                                     douArray[page + 1][12] = douArray[original_page][12];
                                     douArray[page + 1][13] = douArray[original_page][13];
+
+                                    douArray[page + 1][8] = douArray[original_page][8];
+                                    douArray[page + 1][9] = douArray[original_page][9];
+                                    douArray[page + 1][10] = douArray[original_page][10];
                                 } else {
                                     continue;
                                 }
