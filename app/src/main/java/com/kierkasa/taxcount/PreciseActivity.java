@@ -12,8 +12,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Scroller;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import static com.kierkasa.taxcount.MyFuntion.toFixed2;
 import static com.kierkasa.taxcount.PreciseValueAdapter.anyChanged;
 import static com.kierkasa.taxcount.PreciseValueAdapter.douArray;
 
+//取消使用
 public class PreciseActivity extends AppCompatActivity implements View.OnClickListener,TaxCountCallBack {
 
     private List<PreciseValue> preciseValueList = new ArrayList<>();
@@ -322,5 +325,15 @@ public class PreciseActivity extends AppCompatActivity implements View.OnClickLi
         layoutParams.topMargin = top;
         layoutParams.leftMargin = left;
         stay_img.setLayoutParams(layoutParams);
+    }
+
+    //点击空白处关闭软键盘
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (this.getCurrentFocus() != null) {
+            InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.onTouchEvent(event);
     }
 }

@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background3"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/quickCalculation"
@@ -482,7 +480,7 @@
         android:layout_marginBottom="10dp"
         android:id="@+id/income_tax"
         app:layout_constraintTop_toBottomOf="@+id/housing_fund"
-        app:layout_constraintBottom_toTopOf="@id/toolbar">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -499,7 +497,5 @@
             android:layout_marginLeft="14dp"
             android:textSize="13dp" />
     </LinearLayout>
-
-    <include layout="@layout/toolbar_reference" />
 
 </android.support.constraint.ConstraintLayout>

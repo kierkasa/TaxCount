@@ -21,6 +21,7 @@ import static com.kierkasa.taxcount.MyFuntion.intToString;
 import static com.kierkasa.taxcount.MyFuntion.radio_changed;
 import static com.kierkasa.taxcount.MyFuntion.radio_original;
 import static com.kierkasa.taxcount.MyFuntion.strToDouble;
+import static com.kierkasa.taxcount.MyFuntion.strToInt;
 import static com.kierkasa.taxcount.MyFuntion.toFixed2;
 
 public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapter.ViewHolder> {
@@ -28,6 +29,7 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
     public static int page;
     public static double[][] douArray = new double[13][44];
     public static boolean anyChanged = false;
+    public static boolean isInput = false;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox children_edu_checkBox, continuing_edu_checkBox, home_loans_checkBox, housing_rents_checkBox, support_old_checkBox, continue_write_checkBox;
@@ -468,10 +470,8 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
 
                     douArray[page][2] = 1;
                 } else {
+                    holder.children_edu_group.clearCheck();
                     holder.children_edu_group.setClickable(false);
-                    holder.children_edu_500.setChecked(false);
-                    holder.children_edu_1000.setChecked(false);
-                    holder.children_edu_2000.setChecked(false);
                     holder.children_edu_500.setClickable(false);
                     holder.children_edu_1000.setClickable(false);
                     holder.children_edu_2000.setClickable(false);
@@ -499,6 +499,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                             }
                         }
                     }
+                    if (douArray[original_page][2] == 0) {
+                        douArray[12][4] = toFixed2(douArray[0][4] + douArray[1][4] + douArray[2][4] + douArray[3][4] + douArray[4][4] + douArray[5][4] + douArray[6][4] +
+                                douArray[7][4] + douArray[8][4] + douArray[9][4] + douArray[10][4] + douArray[11][4]);
+                    }
                 }
             }
         });
@@ -516,9 +520,8 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
 
                     douArray[page][5] = 1;
                 } else {
+                    holder.continuing_edu_group.clearCheck();
                     holder.continuing_edu_group.setClickable(false);
-                    holder.continuing_edu_400.setChecked(false);
-                    holder.continuing_edu_3600.setChecked(false);
                     holder.continuing_edu_400.setClickable(false);
                     holder.continuing_edu_3600.setClickable(false);
                     holder.continuing_edu_400.setButtonTintList(radio_original);
@@ -544,6 +547,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                             }
                         }
                     }
+                    if (douArray[original_page][5] == 0) {
+                        douArray[12][7] = toFixed2(douArray[0][7] + douArray[1][7] + douArray[2][7] + douArray[3][7] + douArray[4][7] + douArray[5][7] + douArray[6][7] +
+                                douArray[7][7] + douArray[8][7] + douArray[9][7] + douArray[10][7] + douArray[11][7]);
+                    }
                 }
             }
         });
@@ -561,16 +568,15 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                     douArray[page][8] = 1;
 
                     holder.housing_rents_checkBox.setChecked(false);
+                    holder.housing_rents_group.clearCheck();
                     holder.housing_rents_group.setClickable(false);
-                    holder.housing_rents_1500.setChecked(false);
                     holder.housing_rents_1500.setClickable(false);
                     douArray[page][11] = 0;
                     douArray[page][12] = 0;
                     douArray[page][13] = 0;
                 } else {
+                    holder.home_loans_group.clearCheck();
                     holder.home_loans_group.setClickable(false);
-                    holder.home_loans_500.setChecked(false);
-                    holder.home_loans_1000.setChecked(false);
                     holder.home_loans_500.setClickable(false);
                     holder.home_loans_1000.setClickable(false);
                     holder.home_loans_500.setButtonTintList(radio_original);
@@ -600,6 +606,11 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                             }
                         }
                     }
+                    if (douArray[original_page][8] == 0) {
+                        douArray[12][10] = toFixed2(douArray[0][10] + douArray[1][10] + douArray[2][10] + douArray[3][10] + douArray[4][10] + douArray[5][10] + douArray[6][10] +
+                                douArray[7][10] + douArray[8][10] + douArray[9][10] + douArray[10][10] + douArray[11][10]);
+                    }
+                    //notifyDataSetChanged();
                 }
             }
         });
@@ -615,17 +626,16 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                     douArray[page][11] = 1;
 
                     holder.home_loans_checkBox.setChecked(false);
+                    holder.home_loans_group.clearCheck();
                     holder.home_loans_group.setClickable(false);
-                    holder.home_loans_500.setChecked(false);
-                    holder.home_loans_1000.setChecked(false);
                     holder.home_loans_500.setClickable(false);
                     holder.home_loans_1000.setClickable(false);
                     douArray[page][8] = 0;
                     douArray[page][9] = 0;
                     douArray[page][10] = 0;
                 } else {
+                    holder.housing_rents_group.clearCheck();
                     holder.housing_rents_group.setClickable(false);
-                    holder.housing_rents_1500.setChecked(false);
                     holder.housing_rents_1500.setClickable(false);
                     holder.housing_rents_1500.setButtonTintList(radio_original);
 
@@ -653,6 +663,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                             }
                         }
                     }
+                    if (douArray[original_page][11] == 0) {
+                        douArray[12][13] = toFixed2(douArray[0][13] + douArray[1][13] + douArray[2][13] + douArray[3][13] + douArray[4][13] + douArray[5][13] + douArray[6][13] +
+                                douArray[7][13] + douArray[8][13] + douArray[9][13] + douArray[10][13] + douArray[11][13]);
+                    }
                 }
             }
         });
@@ -672,10 +686,8 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
 
                     douArray[page][14] = 1;
                 } else {
+                    holder.support_old_group.clearCheck();
                     holder.support_old_group.setClickable(false);
-                    holder.support_old_500.setChecked(false);
-                    holder.support_old_1000.setChecked(false);
-                    holder.support_old_2000.setChecked(false);
                     holder.support_old_500.setClickable(false);
                     holder.support_old_1000.setClickable(false);
                     holder.support_old_2000.setClickable(false);
@@ -702,6 +714,10 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
                                 continue;
                             }
                         }
+                    }
+                    if (douArray[original_page][14] == 0) {
+                        douArray[12][16] = toFixed2(douArray[0][16] + douArray[1][16] + douArray[2][16] + douArray[3][16] + douArray[4][16] + douArray[5][16] + douArray[6][16] +
+                                douArray[7][16] + douArray[8][16] + douArray[9][16] + douArray[10][16] + douArray[11][16]);
                     }
                 }
             }
@@ -950,7 +966,7 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
     //dou[position][42]:赡养老人checkbox原值 ; dou[position][43]:赡养老人单选框原值
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        PreciseValue preciseValue = preciseValueList.get(position);
+        final PreciseValue preciseValue = preciseValueList.get(position);
         double[][] dou = preciseValue.getDou();
 
         //holder.itemView.setTag(position);
@@ -983,7 +999,7 @@ public class PreciseValueAdapter extends RecyclerView.Adapter<PreciseValueAdapte
         holder.total_income_tax.setText(douToString(dou[position][23]));
         holder.month_income_tax.setText(douToString(dou[position][24]));
         holder.month_final_income.setText(douToString(dou[position][25]));
-        
+
         if (position==12) {
             holder.pretax_income_input.setFocusableInTouchMode(false);
             holder.endowment_insurance_input.setFocusableInTouchMode(false);

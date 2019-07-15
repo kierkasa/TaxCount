@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background3"
-    tools:context=".HintActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/help"
@@ -28,7 +26,7 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintTop_toBottomOf="@+id/help"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar">
+        app:layout_constraintBottom_toBottomOf="parent">
         <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -103,7 +101,7 @@
                 android:layout_width="340dp"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="    2. 住新税法实施首年发生的大病医疗支出，要在2020年才能办理，所以目前计算个税不考虑这一项。"
+                android:text="    2. 新税法实施首年发生的大病医疗支出，要在2020年才能办理，所以目前计算个税不考虑这一项。"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
@@ -221,7 +219,5 @@
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
-
-    <include layout="@layout/toolbar_reference"/>
 
 </android.support.constraint.ConstraintLayout>

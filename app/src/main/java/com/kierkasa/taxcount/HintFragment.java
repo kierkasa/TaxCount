@@ -1,52 +1,68 @@
 package com.kierkasa.taxcount;
 
-import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import static com.kierkasa.taxcount.MyFuntion.dpToPx;
 import static com.kierkasa.taxcount.MyFuntion.getScreenSize;
 
-//取消使用
-public class HintActivity extends AppCompatActivity {
-
-    private Button icon_count, icon_accurate, icon_hint;
-    private TextView instruction, tips, reference, instruction_content1, instruction_content2, tips_content1, tips_content2, 
+public class HintFragment extends Fragment {
+    private View view;
+    private TextView instruction, tips, reference, instruction_content1, instruction_content2, tips_content1, tips_content2,
             tips_content3, tips_content4, tips_content5, reference_linking_content1, reference_linking_content2, reference_linking_content3, reference_linking_content4, help;
 
+    public static HintFragment newInstance() {
+        Log.d("Tax","hintfragment start");
+        HintFragment fragment = new HintFragment();
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hint);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_hint, container, false);
 
-        icon_hint = findViewById(R.id.hint);
-        icon_hint.setBackgroundResource(R.drawable.set_hint_stay);
-        
-        instruction_content1 = findViewById(R.id.instruction_content1);
-        instruction_content2 = findViewById(R.id.instruction_content2);
-        tips_content1 = findViewById(R.id.tips_content1);
-        tips_content2 = findViewById(R.id.tips_content2);
-        tips_content3 = findViewById(R.id.tips_content3);
-        tips_content4 = findViewById(R.id.tips_content4);
-        tips_content5 = findViewById(R.id.tips_content5);
-        reference_linking_content1 = findViewById(R.id.reference_linking_content1);
-        reference_linking_content2 = findViewById(R.id.reference_linking_content2);
-        reference_linking_content3 = findViewById(R.id.reference_linking_content3);
-        reference_linking_content4 = findViewById(R.id.reference_linking_content4);
-        help = findViewById(R.id.help);
+        initWidget();
+        initListener();
 
-        icon_count = findViewById(R.id.count);
-        icon_accurate = findViewById(R.id.accurate);
+        Log.d("Tax","hintfragment view will return");
+        return view;
+    }
+    
+    private void initWidget() {
+        Log.d("Tax","hintfragment initwidget start");
+        instruction_content1 = view.findViewById(R.id.instruction_content1);
+        instruction_content2 = view.findViewById(R.id.instruction_content2);
+        tips_content1 = view.findViewById(R.id.tips_content1);
+        tips_content2 = view.findViewById(R.id.tips_content2);
+        tips_content3 = view.findViewById(R.id.tips_content3);
+        tips_content4 = view.findViewById(R.id.tips_content4);
+        tips_content5 = view.findViewById(R.id.tips_content5);
+        reference_linking_content1 = view.findViewById(R.id.reference_linking_content1);
+        reference_linking_content2 = view.findViewById(R.id.reference_linking_content2);
+        reference_linking_content3 = view.findViewById(R.id.reference_linking_content3);
+        reference_linking_content4 = view.findViewById(R.id.reference_linking_content4);
+        help = view.findViewById(R.id.help);
 
-        
-        instruction = findViewById(R.id.instruction);
-        tips = findViewById(R.id.tips);
-        reference = findViewById(R.id.reference_linking);
+        instruction = view.findViewById(R.id.instruction);
+        tips = view.findViewById(R.id.tips);
+        reference = view.findViewById(R.id.reference_linking);
+
+        ScrollView scrollView = view.findViewById(R.id.hint_scroll);
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) scrollView.getLayoutParams();
+        layoutParams.height = getScreenSize(getActivity(), "height") - dpToPx(getActivity(), 150) - help.getBottom();
+        scrollView.setLayoutParams(layoutParams);
+        Log.d("Tax","hintfragment initwidget stop");
+    }
+
+    private void initListener() {
+        Log.d("Tax","hintfragment initListener start");
         instruction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,37 +109,21 @@ public class HintActivity extends AppCompatActivity {
                 }
             }
         });
+        Log.d("Tax","hintfragment initListenr stop");
+    }
 
+    private void startThread() {
         new Thread() {
             @Override
             public void run() {
                 synchronized (this) {
                     try {
-                        icon_count.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(HintActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                        icon_accurate.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent1 = new Intent(HintActivity.this, PreciseActivity.class);
-                                startActivity(intent1);
-                            }
-                        });
-
+                        initListener();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
         }.start();
-
-        ScrollView scrollView = findViewById(R.id.hint_scroll);
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) scrollView.getLayoutParams();
-        layoutParams.height = getScreenSize(this, "height") - dpToPx(this, 150) - help.getBottom();
-        scrollView.setLayoutParams(layoutParams);
     }
 }

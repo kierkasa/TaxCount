@@ -5,24 +5,16 @@
     <item
         android:id="@+id/count"
         android:icon="@drawable/count"
-        android:title="Count"
-        app:showAsAction="always" />
+        android:title="快捷计算" />
 
     <item
         android:id="@+id/accurate"
         android:icon="@drawable/accurate"
-        android:title="Accurate"
-        app:showAsAction="always" />
+        android:title="精确计算" />
 
     <item
         android:id="@+id/hint"
         android:icon="@drawable/hint"
-        android:title="Hint"
-        app:showAsAction="always" />
+        android:title="帮助" />
 
-    <item
-        android:id="@+id/history"
-        android:icon="@drawable/history"
-        android:title="History"
-        app:showAsAction="always" />
 </menu>

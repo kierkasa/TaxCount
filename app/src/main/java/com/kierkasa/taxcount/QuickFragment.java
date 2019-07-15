@@ -1,16 +1,15 @@
 package com.kierkasa.taxcount;
 
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,60 +19,121 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
-
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.kierkasa.taxcount.MyFuntion.douToString;
 import static com.kierkasa.taxcount.MyFuntion.radio_changed;
 import static com.kierkasa.taxcount.MyFuntion.radio_original;
 import static com.kierkasa.taxcount.MyFuntion.strToDouble;
 
-//取消使用，改用Main2Activity
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,CompoundButton.OnCheckedChangeListener,TaxCountCallBack {
+public class QuickFragment extends Fragment implements RadioGroup.OnCheckedChangeListener,CompoundButton.OnCheckedChangeListener,TaxCountCallBack{
+    private View view;
 
     private CheckBox children_edu_checkBox, continuing_edu_checkBox, home_loans_checkBox, housing_rents_checkBox, support_old_checkBox;
     private RadioGroup children_edu_group, continuing_edu_group, home_loans_group, housing_rents_group, support_old_group;
     private RadioButton children_edu_500, children_edu_1000, children_edu_2000, continuing_edu_400, continuing_edu_3600, home_loans_500,
             home_loans_1000, housing_rents_1500, support_old_500, support_old_1000, support_old_2000;
-
     private EditText pretax_income_input, endowment_insurance_input, medical_insurance_input, unemployment_insurance_input, housing_fund_input;
     private TextView income_tax_value, after_tax_value;
 
     private double pretax_income_sum, children_edu_sum, continuing_edu_sum, home_loans_sum, housing_rents_sum, support_old_sum, endowment_insurance_sum,
             medical_insurance_sum, unemployment_insurance_sum, housing_fund_sum, income_tax_sum, after_tax_sum;
 
+    private InputMethodManager imm;
     //private MyHandler myHandler;
     private TaxCountPresenter taxCountPresenter;
-    private EndowmentInsuranceWatcher endowmentInsuranceWatcher;
-
-    private Button icon_count, icon_accurate, icon_hint;
+    
+    public static QuickFragment newInstance() {
+        Log.d("Tax","quickfragment start");
+        QuickFragment fragment = new QuickFragment();
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");       //取消toolbar标题
-        setSupportActionBar(toolbar);       //设置自定义toolbar
-        icon_count = findViewById(R.id.count);
-        icon_count.setBackgroundResource(R.drawable.set_count_stay);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { 
+        view = inflater.inflate(R.layout.activity_main, container, false);
 
-        children_edu_checkBox = findViewById(R.id.children_edu_checkBox);
-        continuing_edu_checkBox = findViewById(R.id.continuing_edu_checkBox);
-        home_loans_checkBox = findViewById(R.id.home_loans_checkBox);
-        housing_rents_checkBox = findViewById(R.id.housing_rents_checkBox);
-        support_old_checkBox = findViewById(R.id.support_old_checkBox);
+        initWidget();
+        initListener();
 
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                getActivity().onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        Log.d("Tax","quickfragment view will return");
+        return view;
+    }
+
+    //初始化控件
+    private void initWidget() {
+        children_edu_checkBox = view.findViewById(R.id.children_edu_checkBox);
+        continuing_edu_checkBox = view.findViewById(R.id.continuing_edu_checkBox);
+        home_loans_checkBox = view.findViewById(R.id.home_loans_checkBox);
+        housing_rents_checkBox = view.findViewById(R.id.housing_rents_checkBox);
+        support_old_checkBox = view.findViewById(R.id.support_old_checkBox);
+
+        children_edu_group = view.findViewById(R.id.children_edu_group);
+        continuing_edu_group = view.findViewById(R.id.continuing_edu_group);
+        home_loans_group = view.findViewById(R.id.home_loans_group);
+        housing_rents_group = view.findViewById(R.id.housing_rents_group);
+        support_old_group = view.findViewById(R.id.support_old_group);
+
+        children_edu_500 = view.findViewById(R.id.children_edu_500);
+        children_edu_1000 = view.findViewById(R.id.children_edu_1000);
+        children_edu_2000 = view.findViewById(R.id.children_edu_2000);
+        continuing_edu_400 = view.findViewById(R.id.continuing_edu_400);
+        continuing_edu_3600 = view.findViewById(R.id.continuing_edu_3600);
+        home_loans_500 = view.findViewById(R.id.home_loans_500);
+        home_loans_1000 = view.findViewById(R.id.home_loans_1000);
+        housing_rents_1500 = view.findViewById(R.id.housing_rents_1500);
+        support_old_500 = view.findViewById(R.id.support_old_500);
+        support_old_1000 = view.findViewById(R.id.support_old_1000);
+        support_old_2000 = view.findViewById(R.id.support_old_2000);
+
+        pretax_income_input = view.findViewById(R.id.pretax_income_input);
+        endowment_insurance_input = view.findViewById(R.id.endowment_insurance_input);
+        medical_insurance_input = view.findViewById(R.id.medical_insurance_input);
+        unemployment_insurance_input = view.findViewById(R.id.unemployment_insurance_input);
+        housing_fund_input = view.findViewById(R.id.housing_fund_input);
+        income_tax_value = view.findViewById(R.id.income_tax_value);
+        after_tax_value = view.findViewById(R.id.after_tax_value);
+
+        taxCountPresenter = new TaxCountPresenter(this);        //创建Presenter实例，传入MainActivity作为callback
+        imm= (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        initSum();      //初始化各元素sum值
+
+        Button quickCalculate = view.findViewById(R.id.quick_calculate);
+        quickCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+                startCalculate();
+            }
+        });
+        Button quickClean = view.findViewById(R.id.quick_clean);
+        quickClean.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+                cleanQuickPage();
+            }
+        });
+        
+    }
+
+    //初始化listener
+    private void initListener() {
         children_edu_checkBox.setOnCheckedChangeListener(this);
         continuing_edu_checkBox.setOnCheckedChangeListener(this);
         home_loans_checkBox.setOnCheckedChangeListener(this);
         housing_rents_checkBox.setOnCheckedChangeListener(this);
         support_old_checkBox.setOnCheckedChangeListener(this);
-
-        children_edu_group = findViewById(R.id.children_edu_group);
-        continuing_edu_group = findViewById(R.id.continuing_edu_group);
-        home_loans_group = findViewById(R.id.home_loans_group);
-        housing_rents_group = findViewById(R.id.housing_rents_group);
-        support_old_group = findViewById(R.id.support_old_group);
 
         children_edu_group.setOnCheckedChangeListener(this);
         continuing_edu_group.setOnCheckedChangeListener(this);
@@ -81,32 +141,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         housing_rents_group.setOnCheckedChangeListener(this);
         support_old_group.setOnCheckedChangeListener(this);
 
-        children_edu_500 = findViewById(R.id.children_edu_500);
-        children_edu_1000 = findViewById(R.id.children_edu_1000);
-        children_edu_2000 = findViewById(R.id.children_edu_2000);
-        continuing_edu_400 = findViewById(R.id.continuing_edu_400);
-        continuing_edu_3600 = findViewById(R.id.continuing_edu_3600);
-        home_loans_500 = findViewById(R.id.home_loans_500);
-        home_loans_1000 = findViewById(R.id.home_loans_1000);
-        housing_rents_1500 = findViewById(R.id.housing_rents_1500);
-        support_old_500 = findViewById(R.id.support_old_500);
-        support_old_1000 = findViewById(R.id.support_old_1000);
-        support_old_2000 = findViewById(R.id.support_old_2000);
-
-        pretax_income_input = findViewById(R.id.pretax_income_input);
-        endowment_insurance_input = findViewById(R.id.endowment_insurance_input);
-        medical_insurance_input = findViewById(R.id.medical_insurance_input);
-        unemployment_insurance_input = findViewById(R.id.unemployment_insurance_input);
-        housing_fund_input = findViewById(R.id.housing_fund_input);
-        income_tax_value = findViewById(R.id.income_tax_value);
-        after_tax_value = findViewById(R.id.after_tax_value);
-
-        taxCountPresenter = new TaxCountPresenter(this);        //创建Presenter实例，传入MainActivity作为callback
-
-        initSum();      //初始化各元素sum值
-
-        endowmentInsuranceWatcher = new EndowmentInsuranceWatcher();
-        
         pretax_income_input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -156,7 +190,55 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 //startCalculate();
             }
         });
-        endowment_insurance_input.addTextChangedListener(endowmentInsuranceWatcher);
+        endowment_insurance_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //控制两位小数“num”即为要控制的位数, 这里直接改为2
+                if (s.toString().contains(".")) {
+                    if (s.length() - 1 - s.toString().indexOf(".") > 2) {
+                        s = s.toString().subSequence(0, s.toString().indexOf(".") + (2 + 1));
+                        endowment_insurance_input.setText(s);
+                        endowment_insurance_input.setSelection(s.length());
+                    }
+                }
+
+                //限制只能输入一次小数点
+                if (endowment_insurance_input.getText().toString().indexOf(".") >= 0) {
+                    if (endowment_insurance_input.getText().toString().indexOf(".", endowment_insurance_input.getText().toString().indexOf(".") + 1) > 0) {
+                        endowment_insurance_input.setText(endowment_insurance_input.getText().toString().substring(0, endowment_insurance_input.getText().toString().length() - 1));
+                        endowment_insurance_input.setSelection(endowment_insurance_input.getText().toString().length());
+                    }
+                }
+                //第一次输入为点的时候
+                if (s.toString().trim().substring(0).equals(".")) {
+                    s = "0" + s;
+                    endowment_insurance_input.setText(s);
+                    endowment_insurance_input.setSelection(2);
+                }
+                //个位数为0的时候
+                if (s.toString().startsWith("0") && s.toString().trim().length() > 1) {
+                    if (!s.toString().substring(1, 2).equals(".")) {
+                        endowment_insurance_input.setText(s.subSequence(0, 1));
+                        endowment_insurance_input.setSelection(1);
+                    }
+                }
+
+                if (s.length() > 0) {
+                    endowment_insurance_sum = strToDouble(s.toString());
+                } else {
+                    endowment_insurance_sum = 0;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                startQuickFinalCalculate();
+            }
+        });
         medical_insurance_input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -304,90 +386,21 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 startQuickFinalCalculate();
             }
         });
-
-        Button quickCalculate = findViewById(R.id.quick_calculate);
-        quickCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCalculate();
-            }
-        });
-        Button quickClean = findViewById(R.id.quick_clean);
-        quickClean.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cleanQuickPage();
-            }
-        });
-
-        icon_accurate = findViewById(R.id.accurate);
-        icon_accurate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PreciseActivity.class);
-                startActivity(intent);
-            }
-        });
-        icon_hint = findViewById(R.id.hint);
-        icon_hint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(MainActivity.this, HintActivity.class);
-                startActivity(intent1);
-            }
-        });
-
     }
 
-    //养老保险EditText输入监听类
-    private class EndowmentInsuranceWatcher implements TextWatcher {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //控制两位小数“num”即为要控制的位数, 这里直接改为2
-            if (s.toString().contains(".")) {
-                if (s.length() - 1 - s.toString().indexOf(".") > 2) {
-                    s = s.toString().subSequence(0, s.toString().indexOf(".") + (2 + 1));
-                    endowment_insurance_input.setText(s);
-                    endowment_insurance_input.setSelection(s.length());
+    private void startThread() {
+        new Thread() {
+            @Override
+            public void run() {
+                synchronized (this) {
+                    try {
+                        initListener();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
-            //限制只能输入一次小数点
-            if (endowment_insurance_input.getText().toString().indexOf(".") >= 0) {
-                if (endowment_insurance_input.getText().toString().indexOf(".", endowment_insurance_input.getText().toString().indexOf(".") + 1) > 0) {
-                    endowment_insurance_input.setText(endowment_insurance_input.getText().toString().substring(0, endowment_insurance_input.getText().toString().length() - 1));
-                    endowment_insurance_input.setSelection(endowment_insurance_input.getText().toString().length());
-                }
-            }
-            //第一次输入为点的时候
-            if (s.toString().trim().substring(0).equals(".")) {
-                s = "0" + s;
-                endowment_insurance_input.setText(s);
-                endowment_insurance_input.setSelection(2);
-            }
-            //个位数为0的时候
-            if (s.toString().startsWith("0") && s.toString().trim().length() > 1) {
-                if (!s.toString().substring(1, 2).equals(".")) {
-                    endowment_insurance_input.setText(s.subSequence(0, 1));
-                    endowment_insurance_input.setSelection(1);
-                }
-            }
-
-            if (s.length() > 0) {
-                endowment_insurance_sum = strToDouble(s.toString());
-            } else {
-                endowment_insurance_sum = 0;
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            startQuickFinalCalculate();
-        }
+        }.start();
     }
 
     //单选框点击事件监听接口方法
@@ -478,6 +491,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     children_edu_500.setClickable(true);
                     children_edu_1000.setClickable(true);
                     children_edu_2000.setClickable(true);
+
                 } else {
                     cleanChildren_edu();
                 }
@@ -542,53 +556,47 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     //CheckBox取消点击时执行的方法
     private void cleanChildren_edu() {
+        children_edu_group.clearCheck();
         children_edu_group.setClickable(false);
+        children_edu_500.setClickable(false);
+        children_edu_1000.setClickable(false);
+        children_edu_2000.setClickable(false);
         children_edu_500.setButtonTintList(radio_original);
         children_edu_1000.setButtonTintList(radio_original);
         children_edu_2000.setButtonTintList(radio_original);
-        children_edu_500.setChecked(false);
-        children_edu_500.setClickable(false);
-        children_edu_1000.setChecked(false);
-        children_edu_1000.setClickable(false);
-        children_edu_2000.setChecked(false);
-        children_edu_2000.setClickable(false);
         children_edu_sum = 0;
     }
     private void cleanContinuing_edu() {
+        continuing_edu_group.clearCheck();
         continuing_edu_group.setClickable(false);
         continuing_edu_400.setButtonTintList(radio_original);
         continuing_edu_3600.setButtonTintList(radio_original);
-        continuing_edu_400.setChecked(false);
-        continuing_edu_3600.setChecked(false);
         continuing_edu_400.setClickable(false);
         continuing_edu_3600.setClickable(false);
         continuing_edu_sum = 0;
     }
     private void cleanHome_loans() {
+        home_loans_group.clearCheck();
         home_loans_group.setClickable(false);
         home_loans_500.setButtonTintList(radio_original);
         home_loans_1000.setButtonTintList(radio_original);
-        home_loans_500.setChecked(false);
-        home_loans_1000.setChecked(false);
         home_loans_500.setClickable(false);
         home_loans_1000.setClickable(false);
         home_loans_sum = 0;
     }
     private void cleanHousing_rents() {
+        housing_rents_group.clearCheck();
         housing_rents_group.setClickable(false);
         housing_rents_1500.setButtonTintList(radio_original);
-        housing_rents_1500.setChecked(false);
         housing_rents_1500.setClickable(false);
         housing_rents_sum = 0;
     }
     private void cleanSupport_old() {
+        support_old_group.clearCheck();
         support_old_group.setClickable(false);
         support_old_500.setButtonTintList(radio_original);
         support_old_1000.setButtonTintList(radio_original);
         support_old_2000.setButtonTintList(radio_original);
-        support_old_500.setChecked(false);
-        support_old_1000.setChecked(false);
-        support_old_2000.setChecked(false);
         support_old_500.setClickable(false);
         support_old_1000.setClickable(false);
         support_old_2000.setClickable(false);
@@ -693,13 +701,5 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         cleanSupport_old();
     }
 
-    //点击空白处关闭软键盘
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (this.getCurrentFocus() != null) {
-            InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-        }
-        return super.onTouchEvent(event);
-    }
+
 }
